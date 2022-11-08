@@ -26,12 +26,14 @@ async function getPairPrice(one, two){
         let api = "https://api.binance.com/api/v3/ticker/price?symbol=" + one + two
         const res = await axios.get(api)
         printPairPrice(res.data, one, two);
+        return res.data["price"]
     }
     catch(err){
         // console.log(err);
         let api = "https://api.binance.com/api/v3/ticker/price?symbol=" + two + one
         const res = await axios.get(api)
         printPairPrice(res.data, two, one);
+        return res.data["price"]
     }
 }
 
@@ -42,11 +44,9 @@ function printPairPrice(obj, one, two){
     console.log(`1 ${one} = ${price} ${two}`);
 }
 
+// getPairPrice("BTC" , "USDT")
+// getPairPrice("BTC" , "LTC")
+// getPairPrice("BTC" , "ADA")
+// getPairPrice("BTC" , "SOL")
 
-
-
-getPairPrice("BTC" , "USDT")
-getPairPrice("BTC" , "LTC")
-getPairPrice("BTC" , "ADA")
-getPairPrice("BTC" , "SOL")
-
+module.exports = {getPairPrice}
